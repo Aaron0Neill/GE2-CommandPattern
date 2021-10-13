@@ -7,33 +7,34 @@
 #include <string>
 #include <cstdio>
 #include "command.h"
+#include "macroCommand.h"
 
 class Button
 {
 public:
     Button(SDL_Renderer* t_renderer, TTF_Font* t_font,  std::string t_btnName, float t_xPos, float t_yPos);
-    ~Button();
-    void draw();
+    virtual ~Button();
+    virtual void draw();
 
-    void assignCommand(Command* t_command);
+    virtual void assignCommand(Command* t_command);
 
-    void activateButton(std::vector<Material*>& t_mats);
+    virtual void activateButton(MacroCommand* t_macro);
 
-    void onHover();
+    virtual void onHover();
 
-    void loseHover();
+    virtual void loseHover();
 
-    bool contains(float xPos, float yPos);
+    virtual bool contains(float xPos, float yPos);
 
-private:
+    virtual void UpdateCounter();
 
-    void IncreaseCounter();
+protected:
 
-    void InitButton(SDL_Renderer* t_renderer, float x, float y);
+    virtual void InitButton(SDL_Renderer* t_renderer, float x, float y);
 
-    void InitButtonText(SDL_Renderer* t_renderer, TTF_Font* t_font, std::string , float, float);
+    virtual void InitButtonText(SDL_Renderer* t_renderer, TTF_Font* t_font, std::string , float, float);
 
-    void InitCounter(SDL_Renderer* t_renderer, TTF_Font* t_font,std::string name,  float, float);
+    virtual void InitCounter(SDL_Renderer* t_renderer, TTF_Font* t_font,std::string name,  float, float);
 
     float m_xPos;
     float m_yPos;
@@ -47,7 +48,7 @@ private:
     SDL_Texture* m_clickCounter;
     std::string m_name;
     float m_buttonIncrease;
-    int m_counter;
     Command* m_command;
+    bool m_showCounter;
 };
 #endif

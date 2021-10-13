@@ -5,13 +5,13 @@ Button::Button(SDL_Renderer* t_renderer, TTF_Font* t_font, std::string t_btnName
     m_name(t_btnName),
     m_font(t_font),
     m_buttonIncrease(30),
-    m_counter(0),
     m_xPos(t_xPos),
-    m_yPos(t_yPos)
+    m_yPos(t_yPos),
+    m_showCounter(true)
 {
     InitButton(t_renderer, t_xPos, t_yPos);
     InitButtonText(t_renderer, t_font, t_btnName, t_xPos, t_yPos);
-    InitCounter(t_renderer, t_font,std::to_string(m_counter), t_xPos, t_yPos);
+    InitCounter(t_renderer, t_font,std::to_string(0), t_xPos, t_yPos);
 }
 
 //*********************************************
@@ -27,17 +27,17 @@ void Button::draw()
 {
     SDL_RenderCopy(m_renderer, m_image, NULL, &m_imageRect);
     SDL_RenderCopy(m_renderer, m_text, NULL, &m_textRect);
-    SDL_RenderCopy(m_renderer, m_clickCounter, NULL, &m_counterRect);
+    if (m_showCounter)
+        SDL_RenderCopy(m_renderer, m_clickCounter, NULL, &m_counterRect);
 }
 
 //*********************************************
 
-void Button::activateButton(std::vector<Material*>& t_mats)
+void Button::activateButton(MacroCommand* t_macro)
 {
-    if(m_command != nullptr)
-        m_command->execute(t_mats);
+    t_macro->addCommand(m_command);
 
-    IncreaseCounter();
+    UpdateCounter();
 }
 
 //*********************************************
@@ -134,8 +134,8 @@ void Button::InitCounter(SDL_Renderer* t_renderer, TTF_Font* t_font,std::string 
 
     SDL_QueryTexture(m_clickCounter, NULL, NULL, & m_counterRect.w, & m_counterRect.h);
 
-    m_counterRect.x = t_x + (m_imageRect.w / 2.0f) - (m_counterRect.w / 2.0f);
-    m_counterRect.y = t_y + m_imageRect.h + (m_counterRect.h / 2.0f);
+    m_counterRect.x = t_x + 128 - (m_counterRect.w / 2.0f);
+    m_counterRect.y = t_y + 128 + (m_counterRect.h / 2.0f);
 
     if (m_image == nullptr)
         printf(SDL_GetError()); 
@@ -145,8 +145,8 @@ void Button::InitCounter(SDL_Renderer* t_renderer, TTF_Font* t_font,std::string 
 
 //*********************************************
 
-void Button::IncreaseCounter()
+void Button::UpdateCounter()
 {
-    m_counter++;
-    InitCounter(m_renderer, m_font,std::to_string(m_counter), m_xPos - m_counterRect.w, m_yPos- m_counterRect.h);
+    if (m_command != nullptr && m_showCounter)
+        InitCounter(m_renderer, m_font,std::to_string(m_command->getCount()), m_xPos, m_yPos);
 }

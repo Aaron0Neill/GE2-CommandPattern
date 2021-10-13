@@ -16,12 +16,13 @@ public:
     virtual void execute(std::vector<Material*>& t_mats)
     {
         t_mats.push_back(m_legoFact.getMaterial());
+        m_counter = 0;
     }
 
     virtual void undo()
     {
-
     }
+
 private:
     LegoFactory m_legoFact;
 };
