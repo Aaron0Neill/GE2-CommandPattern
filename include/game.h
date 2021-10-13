@@ -5,6 +5,9 @@
 #include <SDL_ttf.h>
 
 #include "button.h"
+#include "ClickCommand.h"
+
+#include "material.h"
 
 #include <vector>
 
@@ -25,7 +28,15 @@ public:
     bool isRunning();
 private:
 
+    void showMats();
+
+    void handleActiveButton(float x, float y);
+
     std::vector<Button*> m_buttons;
+
+    std::vector<Material*> m_mats;
+
+    Button* m_activeButton;
 
     TTF_Font* m_gameFont;
 

@@ -22,7 +22,10 @@ public:
 
     virtual void call()override
     {
-        
+        if (m_caller != nullptr && m_func != nullptr)
+        {
+            m_func(m_caller);
+        }
     }
 private:
     std::function<void(T*)> m_func;
