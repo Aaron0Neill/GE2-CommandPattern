@@ -57,10 +57,13 @@ void Game::handleInputs()
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (m_activeButton != nullptr)
+                {
                     m_activeButton->activateButton(&m_commands);
+                    updateTotals();
+                }
                 break;
             case SDL_MOUSEBUTTONUP:
-                updateTotals();
+
                 break;
         }
     }
