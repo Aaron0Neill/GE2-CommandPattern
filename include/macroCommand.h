@@ -24,7 +24,7 @@ public:
         m_commandList.push_back(t_command);
     };
 
-    virtual void removeCommand()
+    virtual void undo()
     {
         if (m_commandList.size() > 0)
         {
@@ -43,7 +43,7 @@ public:
             m_removedCommands.pop();
     };
 
-    virtual void undo()override
+    virtual void redo()
     {
         if (m_removedCommands.size() > 0 )
         {

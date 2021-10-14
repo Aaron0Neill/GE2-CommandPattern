@@ -19,10 +19,6 @@ public:
         m_counter = 0;
     }
 
-    virtual void undo()
-    {
-    }
-
 private:
     WoodFactory m_woodFactory;
 };

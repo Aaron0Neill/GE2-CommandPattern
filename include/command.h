@@ -10,7 +10,6 @@ public:
     virtual ~Command() {}
 
     virtual void execute(std::vector<Material*>& t_mats) =0;
-    virtual void undo() = 0;
 
     virtual void added(){ m_counter++; }
 

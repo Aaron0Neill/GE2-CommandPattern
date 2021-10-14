@@ -35,7 +35,7 @@ void Game::init(std::string t_windowName, int t_x, int t_y, int t_width, int t_h
     m_buttons.at(1)->assignCommand(new MixCommand());
     m_buttons.at(2)->assignCommand(new BalanceCommand());
     m_buttons.at(3)->assignCommand(new ClickCommand());
-    static_cast<CommandButton*>(m_buttons.at(4))->setRemoveCommand(true);
+    static_cast<CommandButton*>(m_buttons.at(4))->setUndo(true);
     static_cast<CommandButton*>(m_buttons.at(6))->addFunction(Game::printTotals, this);   
 
     m_activeButton = m_buttons.at(0);
@@ -148,8 +148,10 @@ void Game::printTotals()
     int i =0;
     for(auto& m : m_mats)
     {
-        s += m->getType() + " , ";
+        s += m->getType() + ", ";
     }
+
+    s = s.substr(0, s.size()-2);
 
     m_mats.clear();
 

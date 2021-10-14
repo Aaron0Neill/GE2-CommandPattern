@@ -13,7 +13,7 @@ public:
         Button(t_renderer, t_font, t_btnName, t_xPos, t_yPos)
     {
         m_showCounter = false;
-        m_removeCommand = false;
+        m_undo = false;
     };
 
     void addFunction(std::function<void(Game*)> t_func, Game* t_caller)
@@ -22,19 +22,19 @@ public:
         m_func = t_func;
     }
 
-    void setRemoveCommand(bool t_removeCommand)
+    void setUndo(bool t_undo)
     {
-        m_removeCommand = t_removeCommand;
+        m_undo = t_undo;
     }
 
     virtual void activateButton(MacroCommand* t_macro)override
     {
         if (m_caller == nullptr && m_func == nullptr)
         {
-            if (m_removeCommand)
-                t_macro->removeCommand();
-            else
+            if (m_undo)
                 t_macro->undo();
+            else
+                t_macro->redo();
         }
         else
         {
@@ -42,7 +42,7 @@ public:
         }
     }
 private:    
-    bool m_removeCommand;
+    bool m_undo;
     std::function<void(Game*)> m_func;
     Game* m_caller;
 

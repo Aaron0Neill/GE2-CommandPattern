@@ -19,10 +19,6 @@ public:
         m_counter = 0;
     }
 
-    virtual void undo()
-    {
-    }
-
 private:
     ClayFactory m_clayFactory;
 };
