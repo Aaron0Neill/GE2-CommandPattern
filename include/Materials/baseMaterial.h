@@ -1,5 +1,5 @@
-#ifndef MATERIAL_INCLUDE
-#define MATERIAL_INCLUDE
+#ifndef BASE_MATERIAL_INCLUDE
+#define BASE_MATERIAL_INCLUDE
 
 #include <string>
 

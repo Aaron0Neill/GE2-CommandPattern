@@ -1,7 +1,7 @@
-#ifndef FACTORY_INCLUDE
-#define FACTORY_INCLUDE
+#ifndef BASE_FACTORY_INCLUDE
+#define BASE_FACTORY_INCLUDE
 
-#include "material.h"
+#include "Materials/baseMaterial.h"
 
 class Factory
 {
@@ -11,5 +11,6 @@ public:
 
     virtual Material* getMaterial() = 0;
 };
+
 
 #endif
